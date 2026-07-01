@@ -414,7 +414,7 @@ ul, ol { list-style: none; }
 }
 
 .header-search-form input:focus {
-  border-color: var(--clr-primary);
+  border-color: var(--clr-secondary);
 }
 
 .header-search-form button[type="submit"] {
@@ -743,7 +743,7 @@ ul, ol { list-style: none; }
 .category-card:hover {
   transform: translateY(-4px);
   box-shadow: var(--shadow-lg);
-  border-color: var(--clr-primary);
+  border-color: var(--clr-secondary);
 }
 
 .category-card-icon {
@@ -885,7 +885,7 @@ ul, ol { list-style: none; }
 }
 
 .trending-card:hover {
-  border-color: var(--clr-primary);
+  border-color: var(--clr-secondary);
   box-shadow: var(--shadow-md);
   transform: translateX(4px);
 }
@@ -1204,7 +1204,7 @@ ul, ol { list-style: none; }
 }
 
 .newsletter-form input:focus {
-  border-color: var(--clr-primary);
+  border-color: var(--clr-secondary);
 }
 
 .newsletter-form button {
@@ -1385,8 +1385,8 @@ ul, ol { list-style: none; }
 }
 
 .tag-link:hover {
-  background: var(--clr-primary-light);
-  color: var(--clr-primary);
+  background: var(--clr-secondary-light);
+  color: var(--clr-secondary);
 }
 
 /* --- Post Navigation --- */
@@ -1450,7 +1450,7 @@ ul, ol { list-style: none; }
   transition: border-color var(--trans);
 }
 
-.search-form-inner input:focus { border-color: var(--clr-primary); }
+.search-form-inner input:focus { border-color: var(--clr-secondary); }
 
 .search-form-inner button {
   padding: var(--sp-4) var(--sp-8);
@@ -1486,7 +1486,7 @@ ul, ol { list-style: none; }
 }
 
 .search-result-item:hover {
-  border-color: var(--clr-primary);
+  border-color: var(--clr-secondary);
   box-shadow: var(--shadow-md);
 }
 
@@ -1508,7 +1508,7 @@ ul, ol { list-style: none; }
 }
 
 .search-result-type {
-  color: var(--clr-primary);
+  color: var(--clr-secondary);
   font-weight: 600;
 }
 
@@ -1594,7 +1594,7 @@ ul, ol { list-style: none; }
   font-family: var(--ff-mono);
   font-size: var(--fs-3xl);
   font-weight: 800;
-  color: var(--clr-primary);
+  color: var(--clr-secondary);
   min-width: 60px;
   text-align: center;
 }
@@ -1726,7 +1726,7 @@ ul, ol { list-style: none; }
 
 .contact-info-list li svg {
   flex-shrink: 0;
-  color: var(--clr-primary);
+  color: var(--clr-secondary);
 }
 
 /* --- Privacy Page --- */
@@ -1845,8 +1845,8 @@ ul, ol { list-style: none; }
 }
 
 .pagination a:hover {
-  border-color: var(--clr-primary);
-  color: var(--clr-primary);
+  border-color: var(--clr-secondary);
+  color: var(--clr-secondary);
 }
 
 .pagination .current {
