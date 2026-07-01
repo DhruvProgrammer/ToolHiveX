@@ -250,7 +250,6 @@ $telegram_url = get_theme_mod('ai_news_telegram_url', 'https://t.me/your_channel
     </div>
 <style>
 .telegram-banner-sub { color:#ffffff !important; }
-.telegram-cta { margin-top:20px !important;}
 </style>
   </section>
 
