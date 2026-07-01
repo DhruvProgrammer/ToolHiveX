@@ -238,7 +238,6 @@ $telegram_url = get_theme_mod('ai_news_telegram_url', 'https://t.me/your_channel
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4z"/><path d="M22 2 11 13"/></svg>
             </div>
             <div class="telegram-banner-text">
-              <span class="telegram-banner-title">Never miss an update</span>
               <span class="telegram-banner-sub">Join our Telegram for instant AI news & tools</span>
             </div>
           </div>
@@ -247,22 +246,6 @@ $telegram_url = get_theme_mod('ai_news_telegram_url', 'https://t.me/your_channel
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </a>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ====== 8. NEWSLETTER ====== -->
-  <section class="newsletter-section">
-    <div class="container">
-      <div class="newsletter-box">
-        <h2>Never Miss an Update</h2>
-        <p>Subscribe to our newsletter and get the latest AI news, tools, and prompts delivered weekly.</p>
-        <form class="newsletter-form" id="newsletter-form">
-          <input type="email" id="newsletter-email" placeholder="your@email.com" required>
-          <button type="submit">Subscribe</button>
-        </form>
-        <p class="newsletter-message" id="newsletter-message"></p>
-        <p class="newsletter-subscribers">Join thousands of AI enthusiasts</p>
       </div>
     </div>
   </section>
