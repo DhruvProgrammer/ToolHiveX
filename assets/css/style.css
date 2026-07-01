@@ -74,8 +74,8 @@
 
 /* --- Dark Mode --- */
 [data-theme="dark"] {
-  --clr-bg: #020617;
-  --clr-bg-alt: #0f172a;
+  --clr-bg: #171717;
+  --clr-bg-alt: #101820;
   --clr-surface: #1e293b;
   --clr-surface-hover: #334155;
   --clr-text: #f1f5f9;
@@ -85,7 +85,9 @@
   --clr-border-hover: #475569;
   --clr-primary-light: #312E81;
   --clr-secondary-light: #1E3A8A;
-  --clr-accent-light: #164E63;
+  --clr-accent: #21F1A8;
+  --clr-accent-hover: #00D09A;
+  --clr-accent-light: rgba(33, 241, 168, 0.15);
   --shadow-sm: 0 1px 2px rgba(0,0,0,.2);
   --shadow-md: 0 4px 12px rgba(0,0,0,.3);
   --shadow-lg: 0 8px 30px rgba(0,0,0,.4);
@@ -1112,8 +1114,8 @@ ul, ol { list-style: none; }
 }
 
 [data-theme="dark"] .telegram-banner {
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
+  background: linear-gradient(135deg, #1a1b4d, #0f172a);
+  border: 1px solid rgba(99,102,241,.2);
 }
 
 [data-theme="dark"] .telegram-banner::before {
@@ -1156,8 +1158,8 @@ ul, ol { list-style: none; }
 }
 
 [data-theme="dark"] .telegram-icon {
-  background: rgba(29,78,216,.12);
-  color: #1D4ED8;
+  background: rgba(6,182,212,.1);
+  color: var(--clr-accent);
 }
 
 .telegram-banner-text {
@@ -1181,7 +1183,7 @@ ul, ol { list-style: none; }
 }
 
 [data-theme="dark"] .telegram-banner-sub {
-  color: #0f172a;
+  color: rgba(255,255,255,.8);
 }
 
 .telegram-cta {
@@ -1193,7 +1195,7 @@ ul, ol { list-style: none; }
   color: var(--clr-primary);
   border-radius: var(--radius-sm);
   font-weight: 600;
-  font-size: var(--fs-xs);
+  font-size: 0.75rem;
   transition: background var(--trans), color var(--trans);
   text-decoration: none;
   white-space: nowrap;
@@ -1211,12 +1213,12 @@ ul, ol { list-style: none; }
 }
 
 [data-theme="dark"] .telegram-cta {
-  background: #1D4ED8;
+  background: var(--clr-secondary);
   color: #fff;
 }
 
 [data-theme="dark"] .telegram-cta:hover {
-  background: #1E40AF;
+  background: var(--clr-secondary-hover);
   color: #fff;
 }
 

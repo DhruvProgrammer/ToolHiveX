@@ -30,7 +30,11 @@
 
   if (darkToggle) {
     const saved = localStorage.getItem('ai-news-theme');
-    if (saved) setTheme(saved);
+    if (saved) {
+      setTheme(saved);
+    } else {
+      setTheme('dark');
+    }
 
     darkToggle.addEventListener('click', function () {
       const isDark = html.getAttribute('data-theme') === 'dark';
