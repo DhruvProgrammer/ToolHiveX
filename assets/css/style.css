@@ -1680,7 +1680,7 @@ ul, ol { list-style: none; }
 
 .contact-form input:focus,
 .contact-form textarea:focus {
-  border-color: var(--clr-primary);
+  border-color: var(--clr-secondary);
 }
 
 .form-message {
@@ -2019,6 +2019,6 @@ button:focus-visible,
 input:focus-visible,
 textarea:focus-visible,
 select:focus-visible {
-  outline: 2px solid var(--clr-primary);
+  outline: 2px solid var(--clr-secondary);
   outline-offset: 2px;
 }
