@@ -511,9 +511,9 @@ ul, ol { list-style: none; }
 }
 
 .footer-social a:hover {
-  color: var(--clr-primary);
-  border-color: var(--clr-primary);
-  background: var(--clr-primary-light);
+  color: var(--clr-secondary);
+  border-color: var(--clr-secondary);
+  background: var(--clr-secondary-light);
 }
 
 .footer-heading {
@@ -535,7 +535,7 @@ ul, ol { list-style: none; }
   transition: color var(--trans);
 }
 
-.footer-nav a:hover { color: var(--clr-primary); }
+.footer-nav a:hover { color: var(--clr-secondary); }
 
 .footer-bottom {
   display: flex;
@@ -549,7 +549,7 @@ ul, ol { list-style: none; }
 
 .footer-copy strong { color: var(--clr-text); }
 
-.footer-meta a { color: var(--clr-primary); }
+.footer-meta a { color: var(--clr-secondary); }
 
 /* =============================================
    CAROUSEL
@@ -826,8 +826,8 @@ ul, ol { list-style: none; }
 
 .article-card-category {
   padding: var(--sp-1) var(--sp-2);
-  background: var(--clr-primary-light);
-  color: var(--clr-primary);
+  background: var(--clr-secondary-light);
+  color: var(--clr-secondary);
   font-weight: 600;
   border-radius: var(--radius-sm);
 }
@@ -1256,8 +1256,8 @@ ul, ol { list-style: none; }
 .single-category a {
   display: inline-block;
   padding: var(--sp-1) var(--sp-3);
-  background: var(--clr-primary-light);
-  color: var(--clr-primary);
+  background: var(--clr-secondary-light);
+  color: var(--clr-secondary);
   font-size: var(--fs-sm);
   font-weight: 600;
   border-radius: var(--radius-sm);
