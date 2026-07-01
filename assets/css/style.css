@@ -1917,6 +1917,116 @@ ul, ol { list-style: none; }
   color: #fff;
 }
 
+/* --- About Page --- */
+.about-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--sp-12);
+  align-items: start;
+}
+
+.about-story {
+  font-size: var(--fs-lg);
+  line-height: 1.8;
+  color: var(--clr-text-secondary);
+}
+
+.about-story p { margin-bottom: var(--sp-4); }
+
+.about-story p:first-child {
+  font-size: var(--fs-xl);
+  font-weight: 500;
+  color: var(--clr-text);
+  margin-bottom: var(--sp-6);
+}
+
+.about-values {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  margin-top: var(--sp-8);
+}
+
+.about-values-item {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-4) var(--sp-5);
+  background: var(--clr-surface);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-md);
+  transition: all var(--trans);
+}
+
+.about-values-item:hover {
+  border-color: var(--clr-primary);
+  box-shadow: var(--shadow-md);
+}
+
+.about-values-item .value-icon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--clr-primary-light);
+  border-radius: var(--radius-md);
+  color: var(--clr-primary);
+  flex-shrink: 0;
+}
+
+.about-values-item .value-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.about-values-item .value-title {
+  font-weight: 600;
+  color: var(--clr-text);
+  font-size: var(--fs-base);
+}
+
+.about-values-item .value-desc {
+  font-size: var(--fs-sm);
+  color: var(--clr-text-muted);
+}
+
+.about-contact-info {
+  background: var(--clr-surface);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-lg);
+  padding: var(--sp-8);
+  position: sticky;
+  top: calc(var(--header-h) + var(--sp-8));
+}
+
+.about-contact-info h3 {
+  font-size: var(--fs-xl);
+  font-weight: 700;
+  margin-bottom: var(--sp-4);
+  color: var(--clr-text);
+}
+
+.about-contact-info .contact-info-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  list-style: none;
+}
+
+.about-contact-info .contact-info-list li {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  color: var(--clr-text-secondary);
+  font-size: var(--fs-sm);
+}
+
+.about-contact-info .contact-info-list li svg {
+  flex-shrink: 0;
+  color: var(--clr-secondary);
+}
+
 /* --- Animations --- */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(20px); }

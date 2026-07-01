@@ -69,6 +69,7 @@ function ai_news_page_templates($templates) {
     $templates['page-templates/page-prompts.php'] = __('Prompts', 'ai-news');
     $templates['page-templates/page-contact.php'] = __('Contact Us', 'ai-news');
     $templates['page-templates/page-privacy.php'] = __('Privacy Policy', 'ai-news');
+    $templates['page-templates/page-about.php'] = __('About Us', 'ai-news');
     return $templates;
 }
 
