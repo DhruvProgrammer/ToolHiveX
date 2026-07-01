@@ -248,6 +248,9 @@ $telegram_url = get_theme_mod('ai_news_telegram_url', 'https://t.me/your_channel
         </div>
       </div>
     </div>
+<style>
+.telegram-banner-sub { color:#ffffff !important; }
+</style>
   </section>
 
 </main>
