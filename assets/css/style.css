@@ -121,12 +121,12 @@ img {
 }
 
 a {
-  color: var(--clr-primary);
+  color: var(--clr-secondary);
   text-decoration: none;
   transition: color var(--trans);
 }
 
-a:hover { color: var(--clr-primary-hover); }
+a:hover { color: var(--clr-secondary-hover); }
 
 ul, ol { list-style: none; }
 
@@ -192,7 +192,7 @@ ul, ol { list-style: none; }
 .section-header .section-cta {
   display: inline-block;
   margin-top: var(--sp-4);
-  color: var(--clr-primary);
+  color: var(--clr-secondary);
   font-weight: 600;
   font-size: var(--fs-sm);
 }
@@ -272,7 +272,7 @@ ul, ol { list-style: none; }
   justify-content: center;
   width: 36px;
   height: 36px;
-  background: linear-gradient(135deg, var(--clr-primary), #7c3aed);
+  background: linear-gradient(135deg, var(--clr-primary), #818CF8);
   border-radius: var(--radius-sm);
   font-family: var(--ff-mono);
   font-size: var(--fs-sm);
@@ -1093,7 +1093,7 @@ ul, ol { list-style: none; }
 }
 
 .telegram-banner {
-  background: linear-gradient(135deg, #1e3a5f, #0f172a);
+  background: linear-gradient(135deg, #312E81, #0f172a);
   border: 1px solid rgba(59,130,246,.3);
   border-radius: var(--radius-xl);
   overflow: hidden;
