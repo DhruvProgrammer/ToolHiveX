@@ -1,39 +1,32 @@
 <?php
 /**
- * Front Page v2 — Carousel + 6 sections + Telegram banner + Newsletter
+ * Front Page v3 — Top Posts + Category Strips Layout
  * @package AI_News
  */
 get_header();
 
-// Featured posts for carousel (up to 5)
 $carousel = new WP_Query(array(
     'posts_per_page' => 5,
     'meta_key' => '_featured', 'meta_value' => '1',
     'meta_compare' => '=',
 ));
-
 if (!$carousel->have_posts()) {
     $carousel = new WP_Query(array('posts_per_page' => 5));
 }
+$carousel_ids = $carousel->posts ? wp_list_pluck($carousel->posts, 'ID') : array();
 
-// Latest news
-$latest = new WP_Query(array('posts_per_page' => 6, 'post__not_in' => $carousel->posts ? wp_list_pluck($carousel->posts, 'ID') : array()));
+$top_posts = new WP_Query(array('posts_per_page' => 6, 'post__not_in' => $carousel_ids));
 
-// Trending / popular (by comment count)
-$trending = new WP_Query(array('posts_per_page' => 4, 'orderby' => 'comment_count', 'order' => 'DESC'));
-
-// Categories showcase
 $show_cats = get_categories(array('number' => 6, 'orderby' => 'count', 'order' => 'DESC'));
 
-// Tools
+$trending = new WP_Query(array('posts_per_page' => 4, 'orderby' => 'comment_count', 'order' => 'DESC'));
+
 $tools = new WP_Query(array('post_type' => 'ai_tool', 'posts_per_page' => 4, 'meta_key' => '_tool_rank', 'orderby' => 'meta_value_num', 'order' => 'ASC'));
 
-// Prompts
 $prompts = new WP_Query(array('post_type' => 'ai_prompt', 'posts_per_page' => 3));
 
 $telegram_url = get_theme_mod('ai_news_telegram_url', 'https://t.me/your_channel');
 ?>
-
 <main class="site-main">
 
   <!-- ====== 1. CAROUSEL ====== -->
@@ -76,42 +69,17 @@ $telegram_url = get_theme_mod('ai_news_telegram_url', 'https://t.me/your_channel
     </div>
   </section>
 
-  <!-- ====== 2. CATEGORIES SHOWCASE ====== -->
-  <?php if ($show_cats) : ?>
-  <section class="section categories-showcase">
+  <!-- ====== 2. TOP POSTS ====== -->
+  <?php if ($top_posts->have_posts()) : ?>
+  <section class="section top-posts">
     <div class="container">
       <div class="section-header">
-        <h2>Explore Topics</h2>
-        <p>Dive into the categories that matter most in AI</p>
-      </div>
-      <div class="categories-grid">
-        <?php foreach ($show_cats as $cat) : ?>
-          <a href="<?php echo esc_url(get_category_link($cat->term_id)); ?>" class="category-card">
-            <div class="category-card-icon">
-              <?php
-              $icons = array('Hardware' => '⚡', 'Governance' => '⚖️', 'Open Source' => '🔓', 'Research' => '🔬', 'Ethics' => '🧭', 'AI' => '🤖');
-              echo isset($icons[$cat->name]) ? $icons[$cat->name] : '📰';
-              ?>
-            </div>
-            <h3 class="category-card-name"><?php echo esc_html($cat->name); ?></h3>
-            <span class="category-card-count"><?php echo $cat->count; ?> articles</span>
-          </a>
-        <?php endforeach; ?>
-      </div>
-    </div>
-  </section>
-  <?php endif; ?>
-
-  <!-- ====== 3. LATEST NEWS ====== -->
-  <section class="section latest-news">
-    <div class="container">
-      <div class="section-header">
-        <h2>Latest News</h2>
-        <p>Stay updated with the newest developments in AI</p>
-        <a href="<?php echo esc_url(home_url('/news')); ?>" class="section-cta">View All News &rarr;</a>
+        <h2>Top Posts</h2>
+        <p>The latest from AI News</p>
+        <a href="<?php echo esc_url(home_url('/news')); ?>" class="section-cta">View All &rarr;</a>
       </div>
       <div class="article-grid">
-        <?php if ($latest->have_posts()) : while ($latest->have_posts()) : $latest->the_post(); ?>
+        <?php while ($top_posts->have_posts()) : $top_posts->the_post(); ?>
           <article class="article-card">
             <a href="<?php the_permalink(); ?>" class="article-card-link">
               <div class="article-card-image-wrapper">
@@ -124,20 +92,64 @@ $telegram_url = get_theme_mod('ai_news_telegram_url', 'https://t.me/your_channel
               <div class="article-card-content">
                 <div class="article-card-meta">
                   <span class="article-card-category"><?php $cats = get_the_category(); echo $cats ? $cats[0]->name : 'General'; ?></span>
-                  <span class="article-card-readtime"><?php echo get_post_meta(get_the_ID(), '_read_time', true) ?: '5 min'; ?></span>
                 </div>
                 <h3 class="article-card-title"><?php the_title(); ?></h3>
-                <p class="article-card-excerpt"><?php echo wp_trim_words(get_the_excerpt(), 15); ?></p>
-                <div class="article-card-footer">
-                  <span class="article-card-date"><?php echo get_the_date('M j, Y'); ?></span>
-                </div>
               </div>
             </a>
           </article>
-        <?php endwhile; wp_reset_postdata(); endif; ?>
+        <?php endwhile; wp_reset_postdata(); ?>
       </div>
     </div>
   </section>
+  <?php endif; ?>
+
+  <!-- ====== 3. CATEGORY STRIPS ====== -->
+  <?php if (!empty($show_cats)) : ?>
+  <section class="section category-strips">
+    <div class="container">
+      <div class="section-header">
+        <h2>Explore Topics</h2>
+        <p>Dive into the categories that matter most in AI</p>
+      </div>
+      <?php foreach ($show_cats as $cat) : ?>
+        <?php
+        $cat_query = new WP_Query(array(
+          'cat' => $cat->term_id,
+          'posts_per_page' => 4,
+          'post__not_in' => $carousel_ids,
+          'no_found_rows' => true,
+        ));
+        if ($cat_query->have_posts()) :
+        ?>
+        <div class="category-strip">
+          <div class="category-strip-header">
+            <h3 class="category-strip-title"><?php echo esc_html($cat->name); ?></h3>
+            <a href="<?php echo esc_url(get_category_link($cat->term_id)); ?>" class="section-cta">View All &rarr;</a></div>
+          <div class="category-strip-posts">
+            <?php while ($cat_query->have_posts()) : $cat_query->the_post(); ?>
+              <article class="category-strip-card">
+                <a href="<?php the_permalink(); ?>" class="category-strip-link">
+                  <div class="category-strip-img-wrap">
+                    <?php if (has_post_thumbnail()) : ?>
+                      <?php the_post_thumbnail('article-card'); ?>
+                    <?php else : ?>
+                      <div class="article-card-image-placeholder"></div>
+                    <?php endif; ?>
+                  </div>
+                  <h4 class="category-strip-card-title"><?php the_title(); ?></h4>
+                  <div class="category-strip-card-meta">
+                    <span><?php echo get_the_date('M j, Y'); ?></span>
+                  </div>
+                </a>
+              </article>
+            <?php endwhile; wp_reset_postdata(); ?>
+          </div>
+        </div>
+        <?php endif; ?>
+      <?php endforeach; ?>
+    </div>
+  </section>
+  <?php endif; ?>
 
   <!-- ====== 4. TRENDING / POPULAR ====== -->
   <?php if ($trending->have_posts()) : ?>
@@ -209,7 +221,7 @@ $telegram_url = get_theme_mod('ai_news_telegram_url', 'https://t.me/your_channel
         <?php while ($prompts->have_posts()) : $prompts->the_post();
           $model = get_post_meta(get_the_ID(), '_prompt_model', true);
           $type = get_post_meta(get_the_ID(), '_prompt_type', true);
-          $content = get_post_meta(get_the_ID(), '_prompt_content', true);
+          $contentb = get_post_meta(get_the_ID(), '_prompt_content', true);
         ?>
           <div class="prompt-card">
             <div class="prompt-card-header">
@@ -217,10 +229,10 @@ $telegram_url = get_theme_mod('ai_news_telegram_url', 'https://t.me/your_channel
               <?php if ($model) : ?><span class="prompt-model"><?php echo esc_html($model); ?></span><?php endif; ?>
             </div>
             <h3 class="prompt-card-title"><?php the_title(); ?></h3>
-            <?php if ($content) : ?>
-              <pre class="prompt-code"><code><?php echo esc_html($content); ?></code></pre>
+            <?php if ($contentb) : ?>
+              <pre class="prompt-code"><code><?php echo esc_html($contentb); ?></code></pre>
             <?php endif; ?>
-            <button class="prompt-copy" data-content="<?php echo esc_attr($content); ?>">Copy Prompt</button>
+            <button class="prompt-copy" data-content="<?php echo esc_attr($contentb); ?>">Copy Prompt</button>
           </div>
         <?php endwhile; wp_reset_postdata(); ?>
       </div>
@@ -248,10 +260,8 @@ $telegram_url = get_theme_mod('ai_news_telegram_url', 'https://t.me/your_channel
         </div>
       </div>
     </div>
-<style>
-.telegram-banner-sub { color:#ffffff !important; }
-</style>
   </section>
+  <style>.telegram-banner-sub { color:#ffffff !important; }</style>
 
 </main>
 
