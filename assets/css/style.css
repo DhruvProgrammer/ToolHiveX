@@ -72,10 +72,10 @@
   --container-narrow: 760px;
 }
 
-/* --- Dark Mode --- */
+/* --- Dark Mode (Only Mode - Tiffany & Dark Gray Theme) --- */
 [data-theme="dark"] {
-  --clr-bg: #171717;
-  --clr-bg-alt: #101820;
+  --clr-bg: #101820;
+  --clr-bg-alt: #171717;
   --clr-surface: #1B1B1B;
   --clr-surface-hover: #2A2A2A;
   --clr-text: #D1D5DB;
@@ -253,8 +253,8 @@ ul, ol { list-style: none; }
   transition: background var(--trans), border-color var(--trans);
 }
 
-[data-theme="dark"] .site-header {
-  background: rgba(15,23,42,.85);
+.site-header {
+  background: rgba(16, 24, 32, .85);
 }
 
 .header-inner {
@@ -292,7 +292,7 @@ ul, ol { list-style: none; }
   color: #fff;
 }
 
-[data-theme="dark"] .site-title-icon {
+.site-title-icon {
   background: linear-gradient(135deg, var(--clr-primary), #86F1D3);
 }
 
@@ -394,15 +394,10 @@ ul, ol { list-style: none; }
   -webkit-tap-highlight-color: transparent;
 }
 
-.search-toggle:hover,
-.dark-mode-toggle:hover {
+.search-toggle:hover {
   color: var(--clr-text);
   background: var(--clr-surface-hover);
 }
-
-.dark-mode-toggle .icon-sun { display: none; }
-[data-theme="dark"] .dark-mode-toggle .icon-sun { display: block; }
-[data-theme="dark"] .dark-mode-toggle .icon-moon { display: none; }
 
 /* --- Search Bar (dropdown) --- */
 .header-search {
