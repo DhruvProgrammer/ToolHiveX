@@ -56,6 +56,7 @@
         <nav class="footer-nav">
           <a href="<?php echo esc_url(home_url('/privacy-policy')); ?>">Privacy Policy</a>
           <a href="<?php echo esc_url(home_url('/terms-of-service')); ?>">Terms of Service</a>
+          <a href="<?php echo esc_url(home_url('/disclaimer')); ?>">Disclaimer</a>
           <a href="<?php echo esc_url(home_url('/contact')); ?>">Contact Us</a>
         </nav>
       </div>

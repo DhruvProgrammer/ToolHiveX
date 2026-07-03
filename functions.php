@@ -70,6 +70,12 @@ function ai_news_page_templates($templates) {
     $templates['page-templates/page-contact.php'] = __('Contact Us', 'ai-news');
     $templates['page-templates/page-privacy.php'] = __('Privacy Policy', 'ai-news');
     $templates['page-templates/page-about.php'] = __('About Us', 'ai-news');
+    $templates['page-templates/page-disclaimer.php'] = __('Disclaimer', 'ai-news');
+    $templates['page-templates/page-terms.php'] = __('Terms of Service', 'ai-news');
+    $templates['page-templates/page-categories.php'] = __('Categories Overview', 'ai-news');
+    $templates['page-templates/page-news.php'] = __('News Listing', 'ai-news');
+    $templates['page-templates/page-sitemap.php'] = __('Sitemap', 'ai-news');
+    $templates['page-templates/page-newsletter.php'] = __('Newsletter', 'ai-news');
     return $templates;
 }
 
@@ -262,6 +268,7 @@ function ai_news_handle_contact() {
 
 // 8. Include template functions
 require_once get_template_directory() . '/inc/template-functions.php';
+require_once get_template_directory() . '/inc/page-creator.php';
 
 // 9. Customizer
 add_action('customize_register', 'ai_news_customizer');

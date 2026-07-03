@@ -2278,6 +2278,40 @@ telegram-banner-sub {
   color: var(--clr-secondary);
 }
 
+/* =============================================
+   NEWS FILTERS (pills)
+   ============================================= */
+.news-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  margin-bottom: var(--sp-8);
+}
+
+.news-filter {
+  padding: var(--sp-2) var(--sp-4);
+  background: var(--clr-surface);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-full);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  color: var(--clr-text-secondary);
+  text-decoration: none;
+  transition: all var(--trans);
+}
+
+.news-filter:hover {
+  border-color: var(--clr-primary);
+  color: var(--clr-primary);
+  background: var(--clr-primary-light);
+}
+
+.news-filter.active {
+  background: var(--clr-primary);
+  border-color: var(--clr-primary);
+  color: #101820;
+}
+
 /* --- Animations --- */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(20px); }
