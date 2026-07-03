@@ -29,6 +29,7 @@
             wp_nav_menu(array('theme_location' => 'footer', 'container' => false, 'fallback_cb' => false, 'depth' => 1));
           } else { ?>
             <a href="<?php echo esc_url(home_url('/')); ?>">Home</a>
+            <a href="<?php echo esc_url(home_url('/aboutus')); ?>">About Us</a>
             <a href="<?php echo esc_url(home_url('/category/news')); ?>">News</a>
             <a href="<?php echo esc_url(home_url('/prompts')); ?>">Prompts</a>
             <a href="<?php echo esc_url(home_url('/tools')); ?>">AI Tools</a>

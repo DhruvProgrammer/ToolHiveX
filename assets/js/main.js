@@ -12,12 +12,35 @@
   const overlay = document.querySelector('.search-overlay');
 
   // =============================================
-  // DARK MODE (always on)
+  // DARK MODE
   // =============================================
-  (function enforceDarkMode() {
-    html.setAttribute('data-theme', 'dark');
-    localStorage.setItem('ai-news-theme', 'dark');
-  })();
+  const darkToggle = document.querySelector('.dark-mode-toggle');
+
+  function setTheme(theme) {
+    if (theme === 'dark') {
+      html.setAttribute('data-theme', 'dark');
+      localStorage.setItem('ai-news-theme', 'dark');
+      if (darkToggle) darkToggle.setAttribute('aria-pressed', 'true');
+    } else {
+      html.removeAttribute('data-theme');
+      localStorage.setItem('ai-news-theme', 'light');
+      if (darkToggle) darkToggle.setAttribute('aria-pressed', 'false');
+    }
+  }
+
+  if (darkToggle) {
+    const saved = localStorage.getItem('ai-news-theme');
+    if (saved) {
+      setTheme(saved);
+    } else {
+      setTheme('dark');
+    }
+
+    darkToggle.addEventListener('click', function () {
+      const isDark = html.getAttribute('data-theme') === 'dark';
+      setTheme(isDark ? 'light' : 'dark');
+    });
+  }
 
   // =============================================
   // SEARCH TOGGLE
