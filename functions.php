@@ -80,6 +80,9 @@ function ai_news_page_templates($templates) {
 }
 
 // 4. Custom Post Type: AI News
+// NOTE: AI News, AI Tools, and Prompts CPTs have been disabled.
+// Uncomment the block below to re-enable them.
+/*
 add_action('init', 'ai_news_register_post_type');
 function ai_news_register_post_type() {
     register_post_type('ai_news', array(
@@ -155,6 +158,8 @@ function ai_news_register_post_type() {
         'supports'       => array('title', 'editor', 'thumbnail', 'excerpt'),
     ));
 }
+*/
+// END CPT BLOCK
 
 // 5. Custom Meta Boxes
 add_action('add_meta_boxes', 'ai_news_add_meta_boxes');

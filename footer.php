@@ -30,10 +30,6 @@
           } else { ?>
             <a href="<?php echo esc_url(home_url('/')); ?>">Home</a>
             <a href="<?php echo esc_url(home_url('/aboutus')); ?>">About Us</a>
-            <a href="<?php echo esc_url(home_url('/category/news')); ?>">News</a>
-            <a href="<?php echo esc_url(home_url('/prompts')); ?>">Prompts</a>
-            <a href="<?php echo esc_url(home_url('/tools')); ?>">AI Tools</a>
-            <a href="<?php echo esc_url(home_url('/categories')); ?>">Categories</a>
             <a href="<?php echo esc_url(home_url('/contact')); ?>">Contact</a>
           <?php } ?>
         </nav>
@@ -41,13 +37,10 @@
 
       <div class="footer-col">
         <h4 class="footer-heading">Categories</h4>
-        <nav class="footer-nav footer-categories">
-          <?php
-          $cats = get_categories(array('number' => 6));
-          foreach ($cats as $c) {
-            echo '<a href="' . esc_url(get_category_link($c->term_id)) . '">' . esc_html($c->name) . '</a>';
-          }
-          ?>
+        <nav class="footer-nav">
+          <a href="<?php echo esc_url(home_url('/category/news')); ?>">News</a>
+          <a href="<?php echo esc_url(home_url('/tools')); ?>">AI Tools</a>
+          <a href="<?php echo esc_url(home_url('/prompts')); ?>">Prompts</a>
         </nav>
       </div>
 
