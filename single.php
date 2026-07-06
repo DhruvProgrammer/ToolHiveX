@@ -73,9 +73,12 @@ while (have_posts()) : the_post();
       <?php endif; ?>
 
       <!-- Content -->
+      <?php ai_news_toc(); ?>
       <div class="single-content">
         <?php the_content(); ?>
       </div>
+
+      <!-- Share Section -->
       <div class="share-section">
         <span class="share-label">Share:</span>
         <a href="<?php echo esc_url($wa_link); ?>" target="_blank" rel="noopener" aria-label="Share on WhatsApp" class="share-icon share-wa">

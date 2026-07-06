@@ -60,6 +60,7 @@ while (have_posts()) : the_post();
         </div>
       <?php endif; ?>
 
+      <?php ai_news_toc(); ?>
       <div class="single-content">
         <?php the_content(); ?>
       </div>
