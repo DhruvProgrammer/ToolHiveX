@@ -166,7 +166,7 @@ Localized data via `wp_localize_script('ai-news-script', 'aiNewsData', ...)`:
 
 ### single-post.js (loaded on `is_single()` / `is_page()`)
 - Reading progress bar (`#reading-progress` width %)
-- Back-to-top button (`#back-to-top`, appears after 300px scroll)
+- Back-to-top button (`#back-to-top`, appears after 300px scroll — toggles `.visible` class + `aria-hidden`, no longer uses the `hidden` HTML attribute)
 - Copy-link button (`.share-copy` — uses `navigator.clipboard`, swaps icon to checkmark for 2s)
 
 ---
