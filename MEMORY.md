@@ -223,3 +223,27 @@ Localized data via `wp_localize_script('ai-news-script', 'aiNewsData', ...)`:
 - `page-templates/page-article.php` — same fix on all 5 share SVGs + back-to-top SVG
 
 **Lesson:** Any new inline SVG must include explicit `width`, `height`, and `xmlns` attributes.
+
+### 2026-07-06 — Post layout improvements (round 2)
+Three priority items from the WordPress Post Designer Agent audit.
+
+**1. Back-to-top button never appeared (functional bug)**
+- `single.php` & `page-templates/page-article.php` — removed `hidden` HTML attribute on `.back-to-top` (it was overriding `.visible` class forever).
+- Added `aria-hidden="true"` instead — toggled by JS.
+- `assets/js/single-post.js` — `toggleTopBtn()` now toggles BOTH `.visible` and `aria-hidden`, runs on load + passive scroll.
+- `assets/css/style.css` — removed the now-unused `.back-to-top[hidden]` rule (button already has `opacity:0; visibility:hidden` base state).
+
+**2. Table of Contents (Element 9 of blueprint)**
+- New helper `ai_news_inject_heading_ids()` in `inc/template-functions.php` — `the_content` filter (priority 20) that adds `id="slug"` to every `<h2>` without one. Slugs built via `sanitize_title()`.
+- New template tag `ai_news_toc()` in `inc/template-functions.php` — scans post content for H2s with IDs, outputs `<nav class="toc"><details class="toc-details"><summary>On this page</summary><ol>` with anchor links. Suppresses TOC if <2 H2s.
+- `single.php` & `page-templates/page-article.php` — `<?php ai_news_toc(); ?>` inserted immediately before `.single-content`.
+- CSS in `assets/css/style.css` — new `/* --- Table of Contents --- */` section with `.toc`, `.toc-details`, `.toc-summary`, `.toc-list` (left border accent, focus-visible outline, hover bg). Desktop >=769px expands automatically.
+- `assets/js/main.js` — new "TABLE OF CONTENTS" module: auto-opens `.toc-details` on desktop (>768), collapses on mobile; respects user toggle (`dataset.userToggled`); debounced resize.
+
+**3. Article + FAQ JSON-LD schema (SEO — Elements E1/E2 of audit)**
+- New section 10 in `functions.php`: `ai_news_output_schema()` hooked to `wp_head` priority 20.
+- Fires only on `is_singular()`. Outputs `<script type="application/ld+json">` with `@type: Article` (headline, url, datePublished, dateModified, author, publisher, mainEntityOfPage, image, description).
+- If post has `_faq_items` meta (the existing FAQ repeater), also adds `mainEntity` array of `Question`/`Answer` objects → enables Article schema + FAQ rich results together in one block.
+
+**Lesson:** H2 IDs must be injected server-side (via `the_content` filter) so they exist for both TOC scanning and on-page anchors. The same filter is re-applied inside `ai_news_toc()` so the scan matches what renders.
+
