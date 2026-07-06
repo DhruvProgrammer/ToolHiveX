@@ -2436,7 +2436,7 @@ telegram-banner-sub {
   .author-avatar-img { width: 44px; height: 44px; }
   .share-section { gap: var(--sp-2); margin: var(--sp-8) 0; }
   .share-icon { width: 36px; height: 36px; }
-  .share-icon svg { width: 16px; height: 16px; }
+  .share-icon svg { width: 16px; height: 16px; max-width: 16px; max-height: 16px; }
   .faq-heading { font-size: var(--fs-xl); }
   .faq-question { padding: var(--sp-3) var(--sp-4); padding-right: var(--sp-8); font-size: var(--fs-sm); }
   .faq-answer { padding: 0 var(--sp-4) var(--sp-4); font-size: var(--fs-sm); }
@@ -2607,6 +2607,10 @@ input[type="radio"] {
 .share-icon svg {
   width: 18px;
   height: 18px;
+  max-width: 18px;
+  max-height: 18px;
+  display: block;
+  flex: 0 0 auto;
 }
 
 .share-icon:hover {
@@ -2803,6 +2807,9 @@ input[type="radio"] {
 .back-to-top svg {
   width: 20px;
   height: 20px;
+  max-width: 20px;
+  max-height: 20px;
+  display: block;
 }
 
 /* Responsive */
