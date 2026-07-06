@@ -2624,6 +2624,77 @@ input[type="radio"] {
   color: #101820;
 }
 
+/* --- Table of Contents --- */
+.toc {
+  margin: var(--sp-6) 0 var(--sp-8);
+}
+
+.toc-details {
+  background: var(--clr-bg-alt);
+  border: 1px solid var(--clr-border);
+  border-left: 4px solid var(--clr-primary);
+  border-radius: var(--radius-md);
+  padding: var(--sp-4) var(--sp-5);
+}
+
+.toc-summary {
+  cursor: pointer;
+  font-weight: 600;
+  font-size: var(--fs-base);
+  color: var(--clr-text);
+  list-style: none;
+  outline: none;
+}
+.toc-summary::-webkit-details-marker { display: none; }
+.toc-summary::before {
+  content: '\2193';
+  margin-right: var(--sp-2);
+  color: var(--clr-primary);
+  display: inline-block;
+  transition: transform var(--trans);
+}
+.toc-details[open] .toc-summary::before {
+  transform: rotate(180deg);
+}
+
+.toc-list {
+  margin: var(--sp-4) 0 0;
+  padding-left: var(--sp-5);
+  list-style: decimal;
+  color: var(--clr-text-secondary);
+}
+.toc-list li {
+  margin-bottom: var(--sp-2);
+  line-height: 1.5;
+}
+.toc-list a {
+  color: var(--clr-text-secondary);
+  text-decoration: none;
+  font-size: var(--fs-sm);
+  border-radius: var(--radius-sm);
+  padding: 2px 4px;
+  margin-left: -4px;
+  transition: color var(--trans), background var(--trans);
+}
+.toc-list a:hover,
+.toc-list a:focus-visible {
+  color: var(--clr-primary);
+  background: var(--clr-secondary-light);
+  outline: none;
+}
+.toc-list a:focus-visible {
+  outline: 2px solid var(--clr-primary);
+  outline-offset: 2px;
+}
+
+/* Desktop: TOC becomes open-by-default, no collapse */
+@media (min-width: 769px) {
+  .toc-details { padding: var(--sp-5) var(--sp-6); }
+  .toc-details[open] > .toc-summary { margin-bottom: var(--sp-4); }
+  /* Force-open on desktop by removing the need to click */
+  .toc-details:not([open]) .toc-summary { /* keep clickable */ }
+}
+
 /* --- FAQ Section --- */
 .faq-section {
   margin-top: var(--sp-10);
