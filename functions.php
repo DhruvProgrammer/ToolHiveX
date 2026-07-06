@@ -20,6 +20,10 @@ function ai_news_enqueue_assets() {
     wp_enqueue_style('ai-news-style', get_stylesheet_uri(), array(), '2.0.0');
     wp_enqueue_style('ai-news-main', get_template_directory_uri() . '/assets/css/style.css', array(), '2.0.0');
     wp_enqueue_script('ai-news-script', get_template_directory_uri() . '/assets/js/main.js', array(), '2.0.0', true);
+    // Single post specific features (progress bar, back-to-top, copy link)
+    if (is_single() || is_page()) {
+        wp_enqueue_script('ai-news-single-post', get_template_directory_uri() . '/assets/js/single-post.js', array(), '2.0.0', true);
+    }
     wp_enqueue_script('ai-news-comment-reply', get_template_directory_uri() . '/assets/js/comment-reply.js', array(), '2.0.0', true);
     
     wp_localize_script('ai-news-script', 'aiNewsData', array(
@@ -161,7 +165,86 @@ function ai_news_register_post_type() {
 */
 // END CPT BLOCK
 
-// 5. Custom Meta Boxes
+// 5. FAQ Meta Box (stores Q&A as an array in _faq_items)
+add_action('add_meta_boxes', 'ai_news_add_faq_meta_box');
+function ai_news_add_faq_meta_box() {
+    foreach (array('post', 'page') as $screen) {
+        add_meta_box(
+            'ai_faq_meta',
+            __('FAQ Settings', 'ai-news'),
+            'ai_news_faq_meta_cb',
+            $screen,
+            'normal',
+            'high'
+        );
+    }
+}
+
+function ai_news_faq_meta_cb($post) {
+    wp_nonce_field('ai_news_faq_meta', 'ai_news_faq_nonce');
+    $items = get_post_meta($post->ID, '_faq_items', true);
+    if (!is_array($items)) $items = array();
+    // Ensure at least one empty pair is shown
+    if (empty($items)) $items = array(array('q' => '', 'a' => ''));
+    ?>
+    <p>Add frequently asked questions below. Each item needs a Question and an Answer.</p>
+    <div id="faq-repeater" style="display:flex;flex-direction:column;gap:16px;">
+        <?php foreach ($items as $idx => $item) : ?>
+        <div class="faq-item-row" style="border:1px solid #ddd;padding:12px;border-radius:8px;background:#fafafa;">
+            <p><label><strong>Question:</strong></label><br>
+            <input type="text" name="faq_q[]" value="<?php echo esc_attr($item['q'] ?? ''); ?>" style="width:100%;margin-top:4px;" placeholder="Type question here..." /></p>
+            <p><label><strong>Answer:</strong></label><br>
+            <textarea name="faq_a[]" rows="3" style="width:100%;margin-top:4px;" placeholder="Type answer here..."><?php echo esc_textarea($item['a'] ?? ''); ?></textarea></p>
+            <button type="button" class="remove-faq" style="color:#b91c1c;background:none;border:none;cursor:pointer;padding:0;">Remove FAQ</button>
+        </div>
+        <?php endforeach; ?>
+    </div>
+    <p><button type="button" id="add-faq" style="padding:6px 12px;background:var(--wp-admin-theme-color, #2271b1);color:#fff;border:none;border-radius:4px;cursor:pointer;">+ Add FAQ Item</button></p>
+    <script>
+    (function() {
+        var container = document.getElementById('faq-repeater');
+        var addBtn    = document.getElementById('add-faq');
+        addBtn.addEventListener('click', function() {
+            var row = document.createElement('div');
+            row.className = 'faq-item-row';
+            row.style.cssText = 'border:1px solid #ddd;padding:12px;border-radius:8px;background:#fafafa;';
+            row.innerHTML = 
+                '<p><label><strong>Question:</strong></label><br>' +
+                '<input type="text" name="faq_q[]" value="" style="width:100%;margin-top:4px;" placeholder="Type question here..." /></p>' +
+                '<p><label><strong>Answer:</strong></label><br>' +
+                '<textarea name="faq_a[]" rows="3" style="width:100%;margin-top:4px;" placeholder="Type answer here..."></textarea></p>' +
+                '<button type="button" class="remove-faq" style="color:#b91c1c;background:none;border:none;cursor:pointer;padding:0;">Remove FAQ</button>';
+            container.appendChild(row);
+            attachRemoveHandler(row.querySelector('.remove-faq'));
+        });
+        function attachRemoveHandler(btn) {
+            if (!btn) return;
+            btn.addEventListener('click', function() { btn.closest('.faq-item-row').remove(); });
+        }
+        container.querySelectorAll('.remove-faq').forEach(attachRemoveHandler);
+    })();
+    </script>
+    <?php
+}
+
+add_action('save_post', 'ai_news_save_faq_meta');
+function ai_news_save_faq_meta($post_id) {
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
+    if (!isset($_POST['ai_news_faq_nonce']) || !wp_verify_nonce($_POST['ai_news_faq_nonce'], 'ai_news_faq_meta')) return;
+    if (!current_user_can('edit_post', $post_id)) return;
+
+    $qs = isset($_POST['faq_q']) ? $_POST['faq_q'] : array();
+    $as = isset($_POST['faq_a']) ? $_POST['faq_a'] : array();
+    $items = array();
+    foreach ($qs as $i => $q) {
+        $q = sanitize_text_field($q);
+        $a = isset($as[$i]) ? wp_kses_post($as[$i]) : '';
+        if ($q && $a) $items[] = array('q' => $q, 'a' => $a);
+    }
+    update_post_meta($post_id, '_faq_items', $items);
+}
+
+// 6. Custom Meta Boxes (original)
 add_action('add_meta_boxes', 'ai_news_add_meta_boxes');
 function ai_news_add_meta_boxes() {
     add_meta_box('ai_news_meta', __('News Details', 'ai-news'), 'ai_news_meta_cb', 'ai_news', 'normal', 'high');
