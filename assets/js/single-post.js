@@ -23,13 +23,13 @@
   // =============================================
   var backToTop = document.getElementById('back-to-top');
   if (backToTop) {
-    window.addEventListener('scroll', function () {
-      if (window.scrollY > 300) {
-        backToTop.classList.add('visible');
-      } else {
-        backToTop.classList.remove('visible');
-      }
-    });
+    var toggleTopBtn = function () {
+      var show = window.scrollY > 300;
+      backToTop.classList.toggle('visible', show);
+      backToTop.setAttribute('aria-hidden', show ? 'false' : 'true');
+    };
+    window.addEventListener('scroll', toggleTopBtn, { passive: true });
+    toggleTopBtn();
     backToTop.addEventListener('click', function () {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });

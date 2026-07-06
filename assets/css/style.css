@@ -2790,10 +2790,6 @@ input[type="radio"] {
   box-shadow: 0 4px 12px rgba(0,0,0,.3);
 }
 
-.back-to-top[hidden] {
-  display: none;
-}
-
 .back-to-top.visible {
   opacity: 1;
   visibility: visible;
