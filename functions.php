@@ -381,3 +381,79 @@ function ai_news_customizer($wp_customize) {
         'type' => 'checkbox',
     ));
 }
+
+// 10. Structured Data — Article + FAQ schema (JSON-LD) on singular views
+add_action('wp_head', 'ai_news_output_schema', 20);
+function ai_news_output_schema() {
+    if (!is_singular()) return;
+    $post = get_post();
+    if (!$post) return;
+
+    // Article schema
+    $schema = array(
+        '@context'    => 'https://schema.org',
+        '@type'       => 'Article',
+        'headline'    => get_the_title($post),
+        'url'         => get_permalink($post),
+        'datePublished' => get_the_date('c', $post),
+        'dateModified'  => get_the_modified_date('c', $post),
+        'author'      => array(
+            '@type' => 'Person',
+            'name'  => get_the_author_meta('display_name', $post->post_author),
+            'url'   => get_author_posts_url($post->post_author),
+        ),
+        'publisher'   => array(
+            '@type' => 'Organization',
+            'name'  => get_bloginfo('name'),
+            'url'   => home_url('/'),
+        ),
+        'mainEntityOfPage' => array(
+            '@type' => 'WebPage',
+            '@id'   => get_permalink($post),
+        ),
+    );
+
+    // Featured image
+    if (has_post_thumbnail($post)) {
+        $img_id  = get_post_thumbnail_id($post);
+        $img_url = wp_get_attachment_image_url($img_id, 'article-single');
+        if ($img_url) {
+            $schema['image'] = array(
+                '@type' => 'ImageObject',
+                'url'   => $img_url,
+            );
+        }
+    }
+
+    // Excerpt / description
+    $excerpt = wp_strip_all_tags(get_the_excerpt($post));
+    if ($excerpt) $schema['description'] = $excerpt;
+
+    // FAQ schema (only if _faq_items meta is present and non-empty)
+    $faq_items = get_post_meta($post->ID, '_faq_items', true);
+    if (is_array($faq_items) && !empty($faq_items)) {
+        $faq_entities = array();
+        foreach ($faq_items as $faq) {
+            $q = isset($faq['q']) ? trim($faq['q']) : '';
+            $a = isset($faq['a']) ? trim(wp_strip_all_tags($faq['a'])) : '';
+            if ($q && $a) {
+                $faq_entities[] = array(
+                    '@type'          => 'Question',
+                    'name'           => $q,
+                    'acceptedAnswer' => array(
+                        '@type' => 'Answer',
+                        'text'  => $a,
+                    ),
+                );
+            }
+        }
+        if (!empty($faq_entities)) {
+            $schema['mainEntity'] = $faq_entities;
+        }
+    }
+
+    echo "\n<script type=\"application/ld+json\">\n"
+       . wp_json_encode($schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT)
+       . "\n</script>\n";
+}
+

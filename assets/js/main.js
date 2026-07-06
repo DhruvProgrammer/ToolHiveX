@@ -444,4 +444,28 @@
     }
   }
 
+  // =============================================
+  // TABLE OF CONTENTS — auto-open on desktop (>768px), collapsed on mobile
+  // =============================================
+  const tocDetails = document.querySelector('.toc-details');
+  if (tocDetails) {
+    function syncTocOpen() {
+      if (window.innerWidth > 768) {
+        tocDetails.setAttribute('open', '');
+      } else if (!tocDetails.dataset.userToggled) {
+        tocDetails.removeAttribute('open');
+      }
+    }
+    tocDetails.addEventListener('toggle', function () {
+      tocDetails.dataset.userToggled = '1';
+    });
+    syncTocOpen();
+    let resizeTimer;
+    window.addEventListener('resize', function () {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(syncTocOpen, 150);
+    });
+  }
+
 })();
+
