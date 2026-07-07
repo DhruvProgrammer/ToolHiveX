@@ -1443,11 +1443,28 @@ telegram-banner-sub {
 }
 
 .single-summary {
+  margin: var(--sp-2) 0 var(--sp-6);
+  padding: var(--sp-4) 0 var(--sp-4) var(--sp-5);
+  border-left: 3px solid var(--clr-primary);
+}
+
+.single-summary-label {
+  display: inline-block;
+  font-family: var(--ff-mono);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--clr-primary);
+  margin-bottom: var(--sp-2);
+}
+
+.single-summary-text {
   font-size: var(--fs-lg);
   line-height: 1.6;
   color: var(--clr-text-secondary);
-  margin-bottom: var(--sp-5);
   font-weight: 400;
+  margin: 0;
 }
 
 .single-meta {
@@ -2427,7 +2444,8 @@ telegram-banner-sub {
 @media (max-width: 768px) {
   .single-article { padding-top: var(--sp-6); }
   .single-title { font-size: var(--fs-3xl); letter-spacing: -0.5px; }
-  .single-summary { font-size: var(--fs-base); }
+  .single-summary { margin: var(--sp-2) 0 var(--sp-5); padding: var(--sp-3) 0 var(--sp-3) var(--sp-4); }
+  .single-summary-text { font-size: var(--fs-base); }
   .single-content { font-size: var(--fs-base); line-height: 1.7; }
   .single-content h2 { font-size: var(--fs-2xl); margin: var(--sp-8) 0 var(--sp-3); }
   .single-content h3 { font-size: var(--fs-xl); margin: var(--sp-6) 0 var(--sp-2); }
