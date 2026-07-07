@@ -2661,13 +2661,6 @@ input[type="radio"] {
   color: #101820;
 }
 
-/* Mobile: keep 44x44 (WCAG 2.5.5 tap-target minimum) */
-@media (max-width: 768px) {
-  .share-icon { width: 44px; height: 44px; }
-  .share-icon svg { width: 16px; height: 16px; max-width: 16px; max-height: 16px; }
-  .share-section { gap: var(--sp-2); margin: var(--sp-8) 0; }
-}
-
 /* --- Table of Contents --- */
 .toc {
   margin: var(--sp-6) 0 var(--sp-8);
