@@ -108,6 +108,9 @@ while (have_posts()) : the_post();
 
   <?php if (comments_open() || get_comments_number()) : ?>
     <section class="section comments-section container container-narrow">
+      <h2 class="comments-heading">
+        Discussion (<?php echo intval(get_comments_number()); ?>)
+      </h2>
       <?php comments_template(); ?>
     </section>
   <?php endif; ?>

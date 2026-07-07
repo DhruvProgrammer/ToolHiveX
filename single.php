@@ -148,10 +148,14 @@ while (have_posts()) : the_post();
     </div>
   </nav>
 
-  <!-- Comments -->
-  <section class="section comments-section container container-narrow">
-    <?php comments_template(); ?>
-  </section>
+  <?php if (comments_open() || get_comments_number()) : ?>
+    <section class="section comments-section container container-narrow">
+      <h2 class="comments-heading">
+        Discussion (<?php echo intval(get_comments_number()); ?>)
+      </h2>
+      <?php comments_template(); ?>
+    </section>
+  <?php endif; ?>
 
   <!-- You May Also Like (Same Category) -->
   <?php if ($related->have_posts()) : ?>
