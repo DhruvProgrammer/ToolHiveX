@@ -40,7 +40,10 @@ while (have_posts()) : the_post();
         <h1 class="single-title"><?php the_title(); ?></h1>
 
         <?php $excerpt = get_the_excerpt(); if ($excerpt) : ?>
-          <p class="single-summary"><?php echo esc_html(wp_trim_words($excerpt, 30)); ?></p>
+          <div class="single-summary">
+            <span class="single-summary-label">Summary:</span>
+            <p class="single-summary-text"><?php echo esc_html(wp_trim_words($excerpt, 30)); ?></p>
+          </div>
         <?php endif; ?>
 
         <div class="single-author-bio">

@@ -51,7 +51,10 @@ while (have_posts()) : the_post();
         </div>
         <h1 class="single-title"><?php the_title(); ?></h1>
         <!-- Description / Summary -->
-        <p class="single-summary"><?php echo wp_trim_words(get_the_excerpt(), 30); ?></p>
+        <div class="single-summary">
+          <span class="single-summary-label">Summary:</span>
+          <p class="single-summary-text"><?php echo esc_html(wp_trim_words(get_the_excerpt(), 30)); ?></p>
+        </div>
 
         <!-- Author Bio (top of content) -->
         <div class="single-author-bio">
