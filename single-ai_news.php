@@ -19,8 +19,15 @@ get_header(); ?>
 
         <h1 class="entry-title"><?php the_title(); ?></h1>
 
-        <?php if (get_post_meta(get_the_ID(), '_article_excerpt', true)) : ?>
-          <p class="hero-excerpt"><?php echo esc_html(get_post_meta(get_the_ID(), '_article_excerpt', true)); ?></p>
+        <?php
+          $ain_summary = get_post_meta(get_the_ID(), '_article_excerpt', true);
+          if (!$ain_summary) $ain_summary = wp_strip_all_tags(get_the_excerpt());
+          if ($ain_summary) :
+        ?>
+          <div class="single-summary">
+            <span class="single-summary-label">Summary:</span>
+            <p class="single-summary-text"><?php echo esc_html(wp_trim_words($ain_summary, 30)); ?></p>
+          </div>
         <?php endif; ?>
 
         <div class="hero-meta" style="margin-bottom:2rem;">
